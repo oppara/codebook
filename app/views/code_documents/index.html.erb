@@ -24,12 +24,12 @@
           <th><%= l(:codebook_table_header_lang) %></th>
           <th><%= l(:codebook_table_header_area) %></th>
           <th><%= l(:codebook_table_header_actions) %></th></tr>
-        <%= render :partial => "code_document", :collection => @code_documents, :as => :doc %>
+        <%= render :partial => "code_document", :collection => @code_documents %>
       </table>    
     <%- end -%> 
   </div>
 
 <% content_for :sidebar do %>
-  <%= render :partial => 'codebook/menu' %>
+  <%= render :partial => 'codebooks/menu' %>
 <% end %>
 

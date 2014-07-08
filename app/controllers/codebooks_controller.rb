@@ -1,4 +1,4 @@
-class CodebookController < ApplicationController
+class CodebooksController < ApplicationController
   unloadable
 
   before_filter :get_user
@@ -14,24 +14,7 @@ class CodebookController < ApplicationController
     @language = CodeLanguage.new
   end
   
-  
-  def create_category
-    if params[:code_language]
-      newcat = "CodeLanguage".constantize.new(params[:code_language])
-    elsif params[:code_area]
-      newcat = "CodeArea".constantize.new(params[:code_area])
-    else
-      newcat = nil
-    end
-    
-    if newcat and newcat.save
-      flash.now[:notice] = '#{newcat.name} was successfully created.'
-    else
-      flash.now[:error] = 'Cannot create that category'
-    end
-    redirect_to :action => 'admin'
-  end
-
+ 
   def destroy_category
     if params[:language_id]
       "CodeLanguage".constantize.find(params[:language_id]).destroy

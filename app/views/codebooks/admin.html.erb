@@ -7,9 +7,9 @@
     <div class="box adminbox" id="new_language">
       <span class="cb_label"><%= l(:codebook_admin_label_language) %></span>
 
-      <% form_for :code_language, @language, :url => { :action => "create_category" } do |f| %>  
+      <%= form_for @language do |f| %>  
           <%= f.text_field :name, :size => 20 %>
-          <%= submit_tag l(:codebook_admin_label_add) %>
+          <%= f.submit l(:codebook_admin_label_add) %>
       <% end %> 
 
       <hr />
@@ -32,9 +32,9 @@
     <div class="box adminbox" id="new_category">
       <span class="cb_label"><%= l(:codebook_admin_label_area) %></span>
       <br/>
-      <% form_for :code_area, @area, :url => { :action => "create_category" } do |f| %>  
+      <%= form_for @area do |f| %>  
           <%= f.text_field :name, :size => 20  %>
-          <%= submit_tag l(:codebook_admin_label_add) %>
+          <%= f.submit l(:codebook_admin_label_add) %>
       <% end %> 
       <hr/>
       <table style="width: 280px;">
@@ -52,5 +52,5 @@
 
 
 <% content_for :sidebar do %>
-  <%= render :partial => 'codebook/menu' %>
+  <%= render :partial => 'codebooks/menu' %>
 <% end %>

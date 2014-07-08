@@ -15,7 +15,7 @@
   <%- if page_id.eql?("codebook.admin") -%>
     <li class="cb_active"><%= l(:codebook_menu_admin) %></li>
   <%- else -%>
-    <li><%= link_to l(:codebook_menu_admin), :controller => 'codebook', :action => 'admin' %></li>
+    <li><%= link_to l(:codebook_menu_admin), :controller => 'codebooks', :action => 'admin' %></li>
   <%- end -%>  
 </ul>
 
