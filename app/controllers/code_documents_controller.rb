@@ -2,20 +2,20 @@ class CodeDocumentsController < ApplicationController
   unloadable
 
   before_filter :get_user
-  
+
   def index
-    all_code_documents = CodeDocument.find(:all)
-    @filter_area_id = params[:area_id].to_i || 0 
+    all_code_documents = CodeDocument.all
+    @filter_area_id = params[:area_id].to_i || 0
     @filter_language_id = params[:language_id].to_i || 0
 
     if(@filter_area_id > 0 or @filter_language_id > 0)
-      @code_documents = CodeDocument.find(:all, :conditions => ['code_language_id = ?', @filter_language_id]) if @filter_area_id == 0
-      @code_documents = CodeDocument.find(:all, :conditions => ['code_area_id = ?', @filter_area_id]) if @filter_language_id == 0
-      @code_documents = CodeDocument.find(:all, :conditions => ['code_language_id = ? and code_area_id = ?', @filter_language_id,@filter_area_id]) if @filter_language_id > 0 and @filter_area_id > 0 
+      @code_documents = CodeDocument.where('code_language_id = ?', @filter_language_id) if @filter_area_id == 0
+      @code_documents = CodeDocument.where('code_area_id = ?', @filter_area_id) if @filter_language_id == 0
+      @code_documents = CodeDocument.where('code_language_id = ? and code_area_id = ?', @filter_language_id,@filter_area_id) if @filter_language_id > 0 and @filter_area_id > 0
     else
       @code_documents = all_code_documents
     end
-    l = {} 
+    l = {}
     a = {}
     all_code_documents.each do |cd|
       l.key?(cd.code_language.id)? l[cd.code_language.id] += 1 : l[cd.code_language.id] = 1
@@ -39,8 +39,9 @@ class CodeDocumentsController < ApplicationController
 
   def create
     params[:code_document][:author_id] = @user.id
-    @doc = CodeDocument.new(params[:code_document])
-    if @doc.save
+    attr = params.require(:code_document).permit(:title, :code_language_id, :code_area_id, :description, :code, :author_id)
+    @code_document = CodeDocument.new(attr)
+    if @code_document.save
       flash.now[:notice] = 'Your Code Document was successfully created.'
       redirect_to :action => :index
     else
@@ -51,11 +52,12 @@ class CodeDocumentsController < ApplicationController
   def edit
     @code_document = CodeDocument.find(params[:id])
   end
-  
+
   def update
     params[:code_document][:author_id] = @user.id
     @code_document = CodeDocument.find(params[:id])
-    if @code_document.update_attributes(params[:code_document])
+    attr = params.require(:code_document).permit(:title, :code_language_id, :code_area_id, :description, :code)
+    if @code_document.update_attributes(attr)
       redirect_to :action => "show", :id => @code_document
     else
       render :action => "edit"
@@ -77,11 +79,11 @@ private
 
   def get_user
     render_403 unless User.current.logged?
-    
+
     if params[:user_id] && params[:user_id] != User.current.id.to_s
       @user = User.find(params[:user_id])
     else
-      @user = User.current  
+      @user = User.current
     end
   end
 

@@ -1,21 +1,21 @@
 <h2><%= l(:codebook_index_title) %></h2>
-  
+
   <div id="dashboard">
       <h4><%= l(:codebook_index_label) %></h4>
-      
+
       <div id="cb_index_sortoptions">
 
-  <%- form_tag(code_documents_path, :method => "get") do -%>
+  <%= form_tag(code_documents_path, :method => "get") do %>
     <%= label_tag l(:codebook_index_label_lang) %>
     <%= select_tag(:language_id, options_for_select(@used_languages, @filter_language_id))%>
     <%= label_tag l(:codebook_index_label_area) %>
     <%= select_tag(:area_id, options_for_select(@used_areas, @filter_area_id))%>
-    <%= submit_tag(l(:codebook_form_filter_submit)) %> 
-  <%- end -%>
+    <%= submit_tag(l(:codebook_form_filter_submit)) %>
+  <% end %>
       </div>
 <hr />
     <%- unless @code_documents.empty? -%>
-      
+
       <table id="index_doc_table" class="list">
         <tr>
           <th><%= l(:codebook_table_header_title) %></th>
@@ -25,8 +25,8 @@
           <th><%= l(:codebook_table_header_area) %></th>
           <th><%= l(:codebook_table_header_actions) %></th></tr>
         <%= render :partial => "code_document", :collection => @code_documents %>
-      </table>    
-    <%- end -%> 
+      </table>
+    <%- end -%>
   </div>
 
 <% content_for :sidebar do %>

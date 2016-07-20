@@ -1,10 +1,10 @@
 class CodeDocument < ActiveRecord::Base
-  
+
   belongs_to :code_area
   belongs_to :code_language
- 
+
   belongs_to :users, :foreign_key => :author_id
-  
+
   validates_length_of :title, :in => 1..60
   validates_uniqueness_of :title
   validates_presence_of :author_id, :code_area_id, :code_language_id
@@ -19,7 +19,8 @@ class CodeDocument < ActiveRecord::Base
   }
 
   def authorname(format="short")
-    un = User.find(:first, :conditions => ['id=?', self.author_id], :select => "firstname,lastname" )
+    un = User.where('id=?', self.author_id).first
+    # un = User.find(:first, :conditions => ['id=?', self.author_id], :select => "firstname,lastname" )
     format.eql?("short") ? un.firstname : "#{un.firstname} #{un.lastname}"
   end
 

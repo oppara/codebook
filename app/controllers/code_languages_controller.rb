@@ -1,8 +1,9 @@
 class CodeLanguagesController < ApplicationController
   unloadable
   def create
-    newcat = CodeLanguage.new(params[:code_language])
-    
+    attr = params.require(:code_language).permit(:name)
+    newcat = CodeLanguage.new(attr)
+
     if newcat and newcat.save
       flash[:notice] = "#{newcat.name} was successfully created."
     else
