@@ -19,9 +19,14 @@ class CodeDocument < ActiveRecord::Base
   }
 
   def authorname(format="short")
-    un = User.where('id=?', self.author_id).first
-    # un = User.find(:first, :conditions => ['id=?', self.author_id], :select => "firstname,lastname" )
-    format.eql?("short") ? un.firstname : "#{un.firstname} #{un.lastname}"
+    un = User.select("firstname, lastname").where('id=?', self.author_id).first
+    firstname = un.firstname
+    lastname = un.lastname
+    if format.eql?("short") then
+      I18n.locale.equal?(:ja) ? lastname : firstname
+    else
+      I18n.locale.equal?(:ja) ? "#{lastname} #{firstname}" : "#{firstname} #{lastname}"
+    end
   end
 
   # the defaut here is not to show line numbers
