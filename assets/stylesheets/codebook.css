@@ -4,8 +4,8 @@ span.cb_label_left{margin-left: 0;}
 
 ul#cb_menu, ul#cb_search { list-style:none; margin: 0; padding: 0; border: 0;}
 
-li.cb_active{ 
-    font-weight: bold; 
+li.cb_active{
+    font-weight: bold;
     font-style: italic;
 }
 
@@ -13,3 +13,16 @@ span.cb_remark { color: #23a912; }
 
 div.adminbox { width: 320px; margin-right: 12px; float: left;}
 div.topmargin {margin-top: 12px;}
+
+#code_document_title {
+  width: 70%;
+}
+#code_document_description,
+#code_document_code {
+  width: 94%;
+}
+
+.controller-code_documents td.cd_title,
+.controller-code_documents td.cd_desc {
+  text-align: left;
+}
