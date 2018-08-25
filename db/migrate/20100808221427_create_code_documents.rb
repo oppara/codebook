@@ -3,7 +3,7 @@ class CreateCodeDocuments < ActiveRecord::Migration
     create_table :code_documents do |t|
       t.string :title, :limit => 60
       t.text :description
-      t.text :code
+      t.text :code, :limit => 4294967295
       t.integer :code_area_id
       t.integer :code_language_id
       t.integer :author_id
